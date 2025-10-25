@@ -1,4 +1,4 @@
-package com.bayo.ecommerce;
+package com.bayo.ecommerce.customer;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

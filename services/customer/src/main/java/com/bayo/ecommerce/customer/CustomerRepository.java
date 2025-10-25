@@ -1,4 +1,4 @@
-package com.bayo.ecommerce;
+package com.bayo.ecommerce.customer;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

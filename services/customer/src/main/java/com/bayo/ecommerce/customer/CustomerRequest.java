@@ -1,4 +1,4 @@
-package com.bayo.ecommerce;
+package com.bayo.ecommerce.customer;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
