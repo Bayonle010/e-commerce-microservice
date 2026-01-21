@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: unclebayo
       POSTGRES_PASSWORD: password
-#      POSTGRES_DB: product-ms
+      POSTGRES_DB: product
       PGDATA: /var/lib/postgresql/data
     volumes:
       - postgres:/var/lib/postgresql/data
