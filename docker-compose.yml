@@ -1,15 +1,16 @@
 services:
-  postgresql:
+  postgresdb:
     container_name: ms_pg_sql
     image: postgres:17
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: unclebayo
       POSTGRES_PASSWORD: password
-      POSTGRES_DATA: /var/lib/postgresql/data
+#      POSTGRES_DB: product-ms
+      PGDATA: /var/lib/postgresql/data
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     networks:
       - microservices-net
     restart: unless-stopped
