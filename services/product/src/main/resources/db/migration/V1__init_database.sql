@@ -9,7 +9,7 @@ create table if not exists product
 (
    id   integer  not null  primary key,
    available_quantity double precision not null,
-   description        varcharg(255),
+   description        varchar(255),
    name               varchar(255),
    price              numeric(38, 2),
    category_id        integer
