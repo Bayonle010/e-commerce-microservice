@@ -8,9 +8,13 @@ import com.bayo.ecommerce.orderline.OrderLineRequest;
 import com.bayo.ecommerce.orderline.OrderLineService;
 import com.bayo.ecommerce.product.ProductClient;
 import com.bayo.ecommerce.product.PurchaseRequest;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,5 +69,18 @@ public class OrderService {
 
 
 
+    }
+
+    public List<OrderResponse> findAll() {
+        return orderRepository.findAll()
+                .stream()
+                .map(mapper::fromOrder)
+                .collect(Collectors.toList());
+    }
+
+    public OrderResponse findById(Integer orderId) {
+        return orderRepository.findById(orderId)
+                .map(mapper::fromOrder)
+                .orElseThrow(()-> new EntityNotFoundException(String.format("No order found with the provided ID: %d", orderId)));
     }
 }
