@@ -2,6 +2,8 @@ package com.bayo.ecommerce.order;
 
 import com.bayo.ecommerce.customer.CustomerClient;
 import com.bayo.ecommerce.exception.BusinessException;
+import com.bayo.ecommerce.kafka.OrderConfirmation;
+import com.bayo.ecommerce.kafka.OrderProducer;
 import com.bayo.ecommerce.orderline.OrderLineRequest;
 import com.bayo.ecommerce.orderline.OrderLineService;
 import com.bayo.ecommerce.product.ProductClient;
@@ -19,6 +21,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper mapper;
     private final OrderLineService orderLineService;
+    private final OrderProducer orderProducer;
 
     public Integer createOrder(@Valid OrderRequest request) {
         // find the customer
@@ -27,7 +30,7 @@ public class OrderService {
 
         // purchase the product
 
-        this.productClient.purchaseProducts(request.products());
+        var purchasedProducts = this.productClient.purchaseProducts(request.products());
 
         // persist the order
         var order = this.orderRepository.save(mapper.toOrder(request));
@@ -46,6 +49,16 @@ public class OrderService {
         // to do sart payment process
 
         // send the order confimaion ---> notification -ms (Kafka)
+        orderProducer.sendOrderConfirmation(
+                new OrderConfirmation(
+                        request.reference(),
+                        request.amount(),
+                        request.paymentMethod(),
+                        customer,
+                        purchasedProducts
+                )
+        );
+
 
         return null;
 
