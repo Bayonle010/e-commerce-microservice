@@ -1,5 +1,6 @@
 package com.bayo.ecommerce.orderline;
 
+import com.bayo.ecommerce.order.Order;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,4 +17,10 @@ public class OrderLineMapper {
                 .quantity(request.quantity())
                 .build();
           }
+
+    public OrderLineResponse toOrderLineResponse(OrderLine orderLine) {
+        return new OrderLineResponse(
+                orderLine.getId(), orderLine.getQuantity()
+        );
     }
+}
