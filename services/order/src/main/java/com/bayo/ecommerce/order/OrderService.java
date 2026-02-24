@@ -50,7 +50,7 @@ public class OrderService {
             );
         }
 
-        // to do sart payment process
+        // to do sart ecommerce process
 
         // send the order confimaion ---> notification -ms (Kafka)
         orderProducer.sendOrderConfirmation(

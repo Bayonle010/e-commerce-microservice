@@ -1,4 +1,4 @@
-package com.bayo.payment.payment;
+package com.bayo.ecommerce.payment;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,10 +16,10 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "payment")
+@Table(name = "ecommerce")
 public class Payment {
 
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private BigDecimal amount;

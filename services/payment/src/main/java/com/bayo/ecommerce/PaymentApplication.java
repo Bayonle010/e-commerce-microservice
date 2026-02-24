@@ -1,4 +1,4 @@
-package com.bayo.payment;
+package com.bayo.ecommerce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

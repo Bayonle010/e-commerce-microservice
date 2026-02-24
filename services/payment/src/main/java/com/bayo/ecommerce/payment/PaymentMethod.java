@@ -1,4 +1,4 @@
-package com.bayo.payment.payment;
+package com.bayo.ecommerce.payment;
 
 public enum PaymentMethod {
     PAYPAL,
