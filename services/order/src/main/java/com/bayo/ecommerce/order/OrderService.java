@@ -6,6 +6,8 @@ import com.bayo.ecommerce.kafka.OrderConfirmation;
 import com.bayo.ecommerce.kafka.OrderProducer;
 import com.bayo.ecommerce.orderline.OrderLineRequest;
 import com.bayo.ecommerce.orderline.OrderLineService;
+import com.bayo.ecommerce.payment.PaymentClient;
+import com.bayo.ecommerce.payment.PaymentRequest;
 import com.bayo.ecommerce.product.ProductClient;
 import com.bayo.ecommerce.product.PurchaseRequest;
 import jakarta.persistence.EntityNotFoundException;
@@ -26,6 +28,7 @@ public class OrderService {
     private final OrderMapper mapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     public Integer createOrder(@Valid OrderRequest request) {
         // find the customer
@@ -50,7 +53,12 @@ public class OrderService {
             );
         }
 
-        // to do sart ecommerce process
+        var paymentRequest = new PaymentRequest(
+                request.amount(), request.paymentMethod(),  order.getId(), order.getReference(), customer
+        );
+
+        paymentClient.requestOrderPayment(paymentRequest);
+
 
         // send the order confimaion ---> notification -ms (Kafka)
         orderProducer.sendOrderConfirmation(
